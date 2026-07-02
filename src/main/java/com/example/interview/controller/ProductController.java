@@ -15,13 +15,11 @@ public class ProductController {
         this.productService = productService;
     }
 
-    // TODO: Expose GET HTTP endpoint "/search-and-log"
-    // Parameters:
-    // - "q" (String, required)
-    // - "minPrice" (Double, optional)
-    // - "sortBy" (String, optional, default: "price")
-    // Should call productService.searchFilterAndLog(...) and return ResponseEntity.ok(...)
-    public ResponseEntity<SearchAndLogResponse> searchAndLog() {
-        return null; // Replace with your implementation
+    @GetMapping("/search-and-log")
+    public ResponseEntity<SearchAndLogResponse> searchAndLog(
+            @RequestParam("q") String q,
+            @RequestParam(value = "minPrice", required = false) Double minPrice,
+            @RequestParam(value = "sortBy", required = false, defaultValue = "price") String sortBy) {
+        return ResponseEntity.ok(productService.searchFilterAndLog(q, minPrice, sortBy));
     }
 }
